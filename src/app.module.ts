@@ -11,6 +11,8 @@ import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './guards/jwt-strategy';
 
 @Module({
   imports: [
@@ -26,11 +28,12 @@ import { PostModule } from './post/post.module';
         error: err.extensions.originalError
       })
     }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     PrismaModule,
     UserModule,
     PostModule
   ],
   controllers: [AppController],
-  providers: [AppService, AppResolver, PrismaService]
+  providers: [AppService, AppResolver, PrismaService, JwtStrategy]
 })
 export class AppModule {}
