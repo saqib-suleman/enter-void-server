@@ -20,6 +20,7 @@ import { JwtStrategy } from './guards/jwt-strategy';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,
+      introspection: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
       formatError: err => ({
